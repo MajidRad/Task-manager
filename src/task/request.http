@@ -1,0 +1,31 @@
+### CREATE ONE TASK
+POST  http://localhost:3000/task
+Content-Type: application/json
+
+{
+  "title":"task #1",
+  "desc":"task #1 description ",
+  "status":2
+}
+
+### UPDATE TASK
+PATCH   http://localhost:3000/task/2
+Content-Type: application/json
+
+{
+  "title":"task #1",
+  "desc":"task #1 description updated",
+  "status":2
+}
+
+### FIND ONE TASK
+GET http://localhost:3000/task/2
+
+### FIND ALL TASK 
+GET http://localhost:3000/task
+
+### DELETE ALL TASKS
+DELETE  http://localhost:3000/task
+
+### DELETE ONE TASK
+DELETE  http://localhost:3000/task/2
