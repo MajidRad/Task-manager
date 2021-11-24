@@ -1,6 +1,6 @@
-import { IsString, IsNumber, IsEnum } from 'class-validator';
+import { IsString, IsNumber, IsEnum, IsBoolean } from 'class-validator';
 
-import { TaskStatus } from '../../entity/task.entity';
+
 
 export class SaveTaskDto {
   @IsString()
@@ -9,6 +9,6 @@ export class SaveTaskDto {
   @IsString()
   desc: string;
 
-  @IsEnum(TaskStatus)
-  status: TaskStatus;
+  @IsBoolean()
+  status: boolean;
 }

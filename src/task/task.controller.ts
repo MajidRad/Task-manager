@@ -8,6 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { SaveTaskDto } from './dto/save-task.dto';
+import { ToggleTaskDto } from './dto/toggle-task.dto';
 import { TaskService } from './task.service';
 
 @Controller('task')
@@ -16,6 +17,7 @@ export class TaskController {
 
   @Post()
   async addTask(@Body() body: SaveTaskDto) {
+    console.log(body);
     const task = await this.tasksService.create(body);
     return task;
   }
@@ -46,6 +48,13 @@ export class TaskController {
 
   @Delete('/:id')
   deleteOneTask(@Param('id') id: string) {
-    const task = this.tasksService.findOneById(parseInt(id));
+    const task = this.tasksService.deleteOneById(parseInt(id));
+    return task;
+  }
+
+  @Patch('/toggle/:id')
+  toggleTask(@Param('id') id: string, @Body() body: ToggleTaskDto) {
+    const task = this.tasksService.toggleOne(parseInt(id), body);
+    return task;
   }
 }

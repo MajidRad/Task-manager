@@ -2,6 +2,7 @@
   "name": "server",
   "version": "0.0.1",
   "description": "",
+  "proxy": "http://localhost:4000",
   "author": "",
   "private": true,
   "license": "UNLICENSED",

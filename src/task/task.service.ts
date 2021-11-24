@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Task } from '../entity/task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SaveTaskDto } from './dto/save-task.dto';
 import { retry } from 'rxjs';
+import { ToggleTaskDto } from './dto/toggle-task.dto';
 @Injectable()
 export class TaskService {
   constructor(@InjectRepository(Task) private taskRepo: Repository<Task>) {}
@@ -37,5 +38,15 @@ export class TaskService {
   async deleteOneById(id: number) {
     const task = await this.taskRepo.findOne(id);
     this.taskRepo.remove(task);
+    return task.id;
+  }
+
+  async toggleOne(id: number, attrs: ToggleTaskDto) {
+    const task = await this.taskRepo.findOne(id);
+    if (!task) {
+      throw new NotFoundException('task not found');
+    }
+    Object.assign(task, attrs);
+    return await this.taskRepo.save(task);
   }
 }
